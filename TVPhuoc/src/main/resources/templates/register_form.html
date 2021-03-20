@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Login</title>
+	<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.6.0/css/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="/webjars/font-awesome/5.15.2/css/all.css"/>
+	<link rel="stylesheet" type="text/css" href="/css/style_login_form.css"/>
+</head>
+<body>
+    <div class="login">
+        <h1>Login</h1>
+        <div class="username">
+            <i class="fas fa-user"></i>
+            <input type="text" placeholder="USERNAME">
+        </div>
+        <div class="password">
+            <i class="fas fa-key"></i>
+            <input id="pass" type="password" placeholder="PASSWORD">
+            <i id="eye" class="fas fa-eye-slash" role="button" onclick="myFunction()"></i>
+        </div>
+        <div class="button-login">
+            <input type="button" value="Registration">
+            <input type="button" value="Log in">
+        </div>
+        <div>
+            <a href="#">Forgot password</a>
+        </div>
+    </div>
+
+    <script>
+        function myFunction() {
+            var eye = document.getElementById("eye");
+            var pass = document.getElementById("pass");
+            if(eye.className == "fas fa-eye-slash") {
+                eye.className = "fas fa-eye";
+                pass.type = "text";
+            }
+            else {
+                eye.className = "fas fa-eye-slash";
+                pass.type = "password";
+            }
+        }
+    </script>
+</body>
+</html>

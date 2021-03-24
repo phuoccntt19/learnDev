@@ -58,5 +58,12 @@ public class AppUser {
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
- 
+
+	@Override
+	public String toString() {
+		return "AppUser [userId=" + userId + ", userName=" + userName + ", encrytedPassword=" + encrytedPassword
+				+ ", enabled=" + enabled + "]";
+	}
+    
+    
 }

@@ -22,7 +22,7 @@
 			<a class="btn btn-outline-primary" th:if="${#request.userPrincipal == null}" th:href="@{/login}">Login</a>
 		</div>
 		<div>
-			<a class="btn btn-outline-primary" th:if="${#request.userPrincipal == null}" href="#">Sign up</a>
+			<a class="btn btn-outline-primary" th:if="${#request.userPrincipal == null}" th:href="@{/register}">Sign up</a>
 		</div>
 	</div>
 	<h2>Message : <span th:utext="${message}"></span></h2>

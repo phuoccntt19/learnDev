@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.login.main.utils.WebUtils;
  
 @Controller
 public class MainController {
@@ -23,6 +25,9 @@ public class MainController {
     public String adminPage(Model model, Principal principal) {
          
         User loginedUser = (User) ((Authentication) principal).getPrincipal();
+ 
+        String userInfo = WebUtils.toString(loginedUser);
+        model.addAttribute("userInfo", userInfo);
          
         return "adminPage";
     }
@@ -49,6 +54,9 @@ public class MainController {
  
         User loginedUser = (User) ((Authentication) principal).getPrincipal();
  
+        String userInfo = WebUtils.toString(loginedUser);
+        model.addAttribute("userInfo", userInfo);
+ 
         return "userInfoPage";
     }
  
@@ -57,6 +65,10 @@ public class MainController {
  
         if (principal != null) {
             User loginedUser = (User) ((Authentication) principal).getPrincipal();
+ 
+            String userInfo = WebUtils.toString(loginedUser);
+ 
+            model.addAttribute("userInfo", userInfo);
  
             String message = "Hi " + principal.getName() //
                     + "<br> You do not have permission to access this page!";

@@ -29,8 +29,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
         AppUser appUser = this.appUserDAO.findUserAccount(userName);
-        BCryptPasswordEncoder a = new BCryptPasswordEncoder();
-        System.out.println(a.encode("user"));
  
         if (appUser == null) {
             System.out.println("User not found! " + userName);

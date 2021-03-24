@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>Login</title>
@@ -9,16 +9,22 @@
 	href="/webjars/bootstrap/4.6.0-1/css/bootstrap.min.css">
 </head>
 <body>
-
 	<div th:replace="welcomePage :: header">...</div>
 
 	<h1>Login</h1>
 
-	<p th:if="${#request.getParameter('error') == 'true'}"
-		style="color: red">Invalid username or password</p>
+	<!-- /login?error=true -->
+	<div th:if="${#request.getParameter('error') == 'true'}"
+		style="color: red; margin: 10px 0px;">
+		Login Failed!!!<br /> Reason : <span
+			th:if="${#session!= null and #session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION') != null}"
+			th:utext="${#session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION').message}">
+			Static summary </span>
 
-	<h3>Enter username and password</h3>
-	<form name='f' th:action="@{/login}" method='POST'>
+	</div>
+
+	<h3>Enter user name and password:</h3>
+	<form name='f' th:action="@{/j_spring_security_check}" method='post'>
 		<table>
 			<tr>
 				<td>User:</td>
@@ -29,9 +35,21 @@
 				<td><input type='password' name='password' /></td>
 			</tr>
 			<tr>
+				<td>Remember Me?</td>
+				<td><input type="checkbox" name="remember-me" /></td>
+			</tr>
+			<tr>
 				<td><input name="submit" type="submit" value="submit" /></td>
 			</tr>
 		</table>
 	</form>
+
+	<br> Username/pass:
+	<ul>
+		<li>dbuser1/123</li>
+		<li>dbadmin1/123</li>
+	</ul>
+
 </body>
+
 </html>

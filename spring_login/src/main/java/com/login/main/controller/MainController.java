@@ -29,12 +29,6 @@ public class MainController {
 		return "loginPage";
 	}
 	
-	@PostMapping("/login")
-	public String loginProcess(AppUser user) {
-		
-		return "/";
-	}
-	
 	@GetMapping("/userAccountInfo")
 	public String userAccountInfo(Model model) {
 		return "redirect:/userInfo";

@@ -14,15 +14,15 @@
 		<h5 class="my-0 mr-md-auto font-weight-normal">Project Login</h5>
 		<nav class="my-2 my-md-0 mr-md-3">
 			<a class="p-2 text-dark" th:href="@{/}">Home</a>
-			<a class="p-2 text-dark" href="#">User</a>
-			<a class="p-2 text-dark" href="#">Admin</a>
+			<a class="p-2 text-dark" th:href="@{/userInfo}">User</a>
+			<a class="p-2 text-dark" th:href="@{/admin}">Admin</a>
 		</nav>
 		<div>
 			<a class="btn btn-outline-primary" th:if="${#request.userPrincipal != null}" th:href="@{/logout}">Logout</a>
 			<a class="btn btn-outline-primary" th:if="${#request.userPrincipal == null}" th:href="@{/login}">Login</a>
 		</div>
 		<div>
-			<a class="btn btn-outline-primary" href="#">Sign up</a>
+			<a class="btn btn-outline-primary" th:if="${#request.userPrincipal == null}" href="#">Sign up</a>
 		</div>
 	</div>
 	<h2>Message : <span th:utext="${message}"></span></h2>

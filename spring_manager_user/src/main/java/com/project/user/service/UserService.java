@@ -7,11 +7,11 @@ import com.project.user.entity.User;
 public interface UserService {
 	List<User> findAll();
 	
-	List<User> search(String name);
+	User search(String name);
 	
 	User findById(Long id);
 	
-	void save(User user);
+	boolean save(User user);
 	
-	void delete(Long id);
+	boolean delete(Long id);
 }

@@ -1,45 +1,63 @@
 package com.project.user.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.project.user.entity.User;
 import com.project.user.service.UserServiceImpl;
 
-@RestController
+@Controller
 public class UserController {
 	
 	@Autowired
 	UserServiceImpl userServiceImpl;
 	
-	@GetMapping("/user")
-	public List<User> getUser() {
-		return userServiceImpl.findAll();
+	@GetMapping("/")
+	public String welcomePage(Model model) {
+		
+		model.addAttribute("message", "Hello!");
+		
+		return "welcomePage";
 	}
 	
-	@PostMapping("/user")
-	public String addUser(@RequestBody User user) {
-		try {
-			userServiceImpl.save(user);
-			return "200";
-		} catch (Exception e) {
-			return "400";
+	@GetMapping("/register")
+	public String registerPage(Model model) {
+		User user = new User();
+		
+		model.addAttribute("user", user);
+		
+		return "registerPage";
+	}
+	
+	@PostMapping("/register")
+	public String registerUser(Model model, @ModelAttribute("user") User user) {
+		user.setRole("ROLE_USER");
+		user.setEnabled(true);
+		BCryptPasswordEncoder bPasswordEncoder = new BCryptPasswordEncoder();
+		user.setPassword(bPasswordEncoder.encode(user.getPassword()));
+		if(userServiceImpl.save(user)) {
+			model.addAttribute("message", "Successful registration!");
+		} else {
+			model.addAttribute("message", "Registration was not successful!");
 		}
+		
+		return "welcomePage";
 	}
 	
-	@GetMapping("/user/{id}")
-	public User getUserById(@PathVariable Long id) {
-		return userServiceImpl.findById(id);
+	@GetMapping("/login")
+	public String loginPage() {
+		
+		return "loginPage";
 	}
 	
-	@GetMapping("/user/name")
-	public List<User> getUserById(@RequestBody User user) {
-		return userServiceImpl.search(user.getName());
+	@GetMapping("/logoutSuccessful")
+	public String logoutPage(Model model) {
+		model.addAttribute("message", "Log out successful!");
+		return "loginPage";
 	}
 }

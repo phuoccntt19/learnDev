@@ -20,8 +20,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<User> search(String name) {
-		return userRepository.findByNameContaining(name);
+	public User search(String username) {
+		return userRepository.findByUsernameContaining(username);
 	}
 
 	@Override
@@ -30,13 +30,23 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void save(User user) {
-		userRepository.save(user);
+	public boolean save(User user) {
+		try {
+			userRepository.save(user);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	@Override
-	public void delete(Long id) {
-		userRepository.deleteById(id);
+	public boolean delete(Long id) {
+		try {
+			userRepository.deleteById(id);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 }

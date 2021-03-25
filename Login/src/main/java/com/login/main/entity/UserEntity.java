@@ -1,22 +1,21 @@
-package com.project.user.entity;
+package com.login.main.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="user")
-public class User {
-	
+public class UserEntity {
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id")
+	@GeneratedValue
+	@Column(name="id", nullable=false, unique=true)
 	private Long id;
 	
-	@Column(name="username", nullable=false, length=64)
+	@Column(name="username", nullable=false, unique=true, length=64)
 	private String username;
 	
 	@Column(name="password", nullable=false, length=128)
@@ -27,14 +26,6 @@ public class User {
 	
 	@Column(name="enabled", nullable=false)
 	private boolean enabled;
-
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
 
 	public Long getId() {
 		return id;
@@ -66,6 +57,21 @@ public class User {
 
 	public void setRole(String role) {
 		this.role = role;
-	}	
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	@Override
+	public String toString() {
+		return "UserEntity [id=" + id + ", username=" + username + ", password=" + password + ", role=" + role
+				+ ", enabled=" + enabled + "]";
+	}
+	
 	
 }

@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>Login</title>
+<link type="text/css" rel="stylesheet" href="/css/loginPage.css">
 <link type="text/css" rel="stylesheet" href="/css/welcomePageStyle.css">
 <link type="text/css" rel="stylesheet"
 	href="/webjars/font-awesome/5.15.2/css/all.min.css">
@@ -10,32 +11,33 @@
 </head>
 <body>
 	<div th:replace="welcomePage :: header">...</div>
+	<div class="container">
+		<div class="border">
 
-	<h1>Login</h1>
+			<h3 class="mb-3">Login</h3>
 
-	<!-- /login?error=true -->
-	<div th:if="${#request.getParameter('error') == 'true'}"
-		style="color: red; margin: 10px 0px;">
-		Login Failed!!!
+			<!-- /login?error=true -->
+			<div th:if="${#request.getParameter('error') == 'true'}"
+				style="color: red; margin: 10px 0px;">Login Failed!!!</div>
+
+			<form name='f' th:action="@{/j_spring_security_check}" method='post'>
+				<table>
+					<tr>
+						<td>User:</td>
+						<td><input type='text' name='username' value=''
+							class="mb-2 ml-2" /></td>
+					</tr>
+					<tr class="mb-3">
+						<td>Password:</td>
+						<td><input type='password' name='password' class="mb-2 ml-2" /></td>
+					</tr>
+					<tr>
+						<td><input name="submit" type="submit" value="Log in" /></td>
+					</tr>
+				</table>
+			</form>
+		</div>
 	</div>
-
-	<h3>Enter user name and password:</h3>
-	<form name='f' th:action="@{/j_spring_security_check}" method='post'>
-		<table>
-			<tr>
-				<td>User:</td>
-				<td><input type='text' name='username' value=''></td>
-			</tr>
-			<tr>
-				<td>Password:</td>
-				<td><input type='password' name='password' /></td>
-			</tr>
-			<tr>
-				<td><input name="submit" type="submit" value="Log in" /></td>
-			</tr>
-		</table>
-	</form>
-
 </body>
 
 </html>

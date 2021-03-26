@@ -3,6 +3,7 @@ package com.project.user.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.project.user.dao.UserRepository;
@@ -21,20 +22,19 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User search(String username) {
-		return userRepository.findByUsernameContaining(username);
-	}
-
-	@Override
-	public User findById(Long id) {
-		return userRepository.findById(id).get();
+		return userRepository.findByUsername(username);
 	}
 
 	@Override
 	public boolean save(User user) {
-		try {
+		user.setRole("ROLE_USER");
+		user.setEnabled(true);
+		BCryptPasswordEncoder bPasswordEncoder = new BCryptPasswordEncoder();
+		user.setPassword(bPasswordEncoder.encode(user.getPassword()));
+		if(userRepository.findByUsername(user.getUsername()) == null) {
 			userRepository.save(user);
 			return true;
-		} catch (Exception e) {
+		} else {
 			return false;
 		}
 	}

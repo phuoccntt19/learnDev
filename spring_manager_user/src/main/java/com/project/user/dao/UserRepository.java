@@ -7,5 +7,5 @@ import com.project.user.entity.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-	User findByUsernameContaining(String username);
+	User findByUsername(String username);
 }

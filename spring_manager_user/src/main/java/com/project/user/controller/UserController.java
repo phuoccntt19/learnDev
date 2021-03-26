@@ -1,7 +1,12 @@
 package com.project.user.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.PermitAll;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,10 +41,6 @@ public class UserController {
 	
 	@PostMapping("/register")
 	public String registerUser(Model model, @ModelAttribute("user") User user) {
-		user.setRole("ROLE_USER");
-		user.setEnabled(true);
-		BCryptPasswordEncoder bPasswordEncoder = new BCryptPasswordEncoder();
-		user.setPassword(bPasswordEncoder.encode(user.getPassword()));
 		if(userServiceImpl.save(user)) {
 			model.addAttribute("message", "Successful registration!");
 		} else {
@@ -59,5 +60,25 @@ public class UserController {
 	public String logoutPage(Model model) {
 		model.addAttribute("message", "Log out successful!");
 		return "loginPage";
+	}
+	
+	@GetMapping("/user")
+	public String userPage(Model model) {
+		model.addAttribute("message", "USER");
+		return "userPage";
+	}
+	
+	@GetMapping("/admin")
+	public String adminPage(Model model) {
+		List<User> users = userServiceImpl.findAll();
+		model.addAttribute("users", users);
+		model.addAttribute("message", "ADMIN");
+		return "adminPage";
+	}
+	
+	@GetMapping("/403")
+	public String page403(Model model) {
+		model.addAttribute("message", "Unauthorized");
+		return "403Page";
 	}
 }

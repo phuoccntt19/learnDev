@@ -9,8 +9,6 @@ public interface UserService {
 	
 	User search(String name);
 	
-	User findById(Long id);
-	
 	boolean save(User user);
 	
 	boolean delete(Long id);

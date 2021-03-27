@@ -2,7 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>Register</title>
-<link type="text/css" rel="stylesheet" href="/css/welcomePageStyle.css">
 <link type="text/css" rel="stylesheet" href="/css/registerPage.css">
 <link type="text/css" rel="stylesheet"
 	href="/webjars/font-awesome/5.15.2/css/all.min.css">
@@ -16,11 +15,12 @@
 		<div class="border">
 			<form name='f' th:action="@{/register}" th:object="${user}"
 				method="post">
-				<input type="text" th:field="*{username}">
-				<input type="password" th:field="*{password}">
-				<input type="submit" value="Submit">
+				<input type="text" th:field="*{username}"> <input
+					type="password" th:field="*{password}"> <input
+					type="submit" value="Submit">
 			</form>
 		</div>
 	</div>
+
 </body>
 </html>

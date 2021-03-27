@@ -2,7 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <title th:utext="${title}"></title>
-<link type="text/css" rel="stylesheet" href="/css/welcomePageStyle.css">
 <link type="text/css" rel="stylesheet"
 	href="/webjars/font-awesome/5.15.2/css/all.min.css">
 <link type="text/css" rel="stylesheet"
@@ -18,11 +17,11 @@
 			<a class="p-2 text-dark" th:href="@{/admin}">Admin</a>
 		</nav>
 		<div>
-			<a class="btn btn-outline-primary bt" th:if="${#request.userPrincipal != null}" th:href="@{/logout}">Logout</a>
-			<a class="btn btn-outline-primary bt" th:if="${#request.userPrincipal == null}" th:href="@{/login}">Login</a>
+			<a class="btn btn-outline-primary ml-1" th:if="${#request.userPrincipal != null}" th:href="@{/logout}">Logout</a>
+			<a class="btn btn-outline-primary ml-1" th:if="${#request.userPrincipal == null}" th:href="@{/login}">Login</a>
 		</div>
 		<div>
-			<a class="btn btn-outline-primary bt" th:if="${#request.userPrincipal == null}" th:href="@{/register}">Sign up</a>
+			<a class="btn btn-outline-primary ml-1" th:if="${#request.userPrincipal == null}" th:href="@{/register}">Sign up</a>
 		</div>
 	</div>
 	<h2>Message : <span th:utext="${message}"></span></h2>

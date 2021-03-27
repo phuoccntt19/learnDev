@@ -14,7 +14,7 @@
 	<div class="container">
 		<div class="text-center">
 			<div class="col-md-4 col-md-offset-4 m-auto">
-				<div class="panel panel-default">
+				<div class="panel panel-default p-4 border border-dark rounded">
 					<div class="panel-heading">
 						<h3 class="panel-title">Please sign in</h3>
 					</div>
@@ -32,7 +32,7 @@
 								</div>
 								<div class="form-group">
 									<div class="container">
-										<div class="row">
+										<div class="row" style="font-size: 15px">
 											<div class="col">
 												<div th:if="${#request.getParameter('error') == 'true'}"
 													style="color: red;">Login Failed!!!</div>

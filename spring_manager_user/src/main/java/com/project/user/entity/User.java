@@ -8,25 +8,39 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="user")
+@Table(name = "user")
 public class User {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id")
+	@Column(name = "id")
 	private Long id;
-	
-	@Column(name="username", nullable=false, length=64)
+
+	@Column(name = "username", nullable = false, length = 64)
 	private String username;
-	
-	@Column(name="password", nullable=false, length=128)
+
+	@Column(name = "password", nullable = false, length = 128)
 	private String password;
-	
-	@Column(name="role", nullable=false, length=64)
+
+	@Column(name = "role", nullable = false, length = 64)
 	private String role;
-	
-	@Column(name="enabled", nullable=false)
+
+	@Column(name = "enabled", nullable = false)
 	private boolean enabled;
+
+	@Column(name = "email", nullable = false, length = 128)
+	private String email;
+
+	@Column(name = "active", nullable = false)
+	private	boolean active;
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 	public boolean isEnabled() {
 		return enabled;
@@ -66,6 +80,14 @@ public class User {
 
 	public void setRole(String role) {
 		this.role = role;
-	}	
-	
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
 }

@@ -1,10 +1,6 @@
 package com.project.user.controller;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.annotation.security.DeclareRoles;
-import javax.annotation.security.PermitAll;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.project.user.entity.User;
 import com.project.user.service.UserServiceImpl;
+import com.sun.security.auth.UserPrincipal;
 
 @Controller
 public class UserController {
@@ -44,10 +41,9 @@ public class UserController {
 		if(userServiceImpl.save(user)) {
 			model.addAttribute("message", "Successful registration!");
 		} else {
-			model.addAttribute("message", "Registration was not successful!");
+			model.addAttribute("message", "User already exists!!!");
 		}
-		
-		return "welcomePage";
+		return "registerPage";
 	}
 	
 	@GetMapping("/login")

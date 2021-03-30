@@ -29,6 +29,7 @@ public class UserServiceImpl implements UserService {
 	public boolean save(User user) {
 		user.setRole("ROLE_USER");
 		user.setEnabled(true);
+		user.setActive(false);
 		BCryptPasswordEncoder bPasswordEncoder = new BCryptPasswordEncoder();
 		user.setPassword(bPasswordEncoder.encode(user.getPassword()));
 		if(userRepository.findByUsername(user.getUsername()) == null) {

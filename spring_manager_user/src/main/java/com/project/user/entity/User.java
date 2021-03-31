@@ -30,9 +30,9 @@ public class User {
 
 	@Column(name = "email", nullable = false, length = 128)
 	private String email;
-
-	@Column(name = "active", nullable = false)
-	private	boolean active;
+	
+	@Column(name = "verification_code", length = 64, unique = true)
+    private String verificationCode;
 
 	public String getEmail() {
 		return email;
@@ -82,12 +82,12 @@ public class User {
 		this.role = role;
 	}
 
-	public boolean isActive() {
-		return active;
+	public String getVerificationCode() {
+		return verificationCode;
 	}
 
-	public void setActive(boolean active) {
-		this.active = active;
+	public void setVerificationCode(String verificationCode) {
+		this.verificationCode = verificationCode;
 	}
 
 }

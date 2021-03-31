@@ -53,6 +53,8 @@
 									<input class="btn btn-lg btn-success btn-block" type="submit"
 										value="Register">
 								</div>
+								<p th:if=${error}><span th:utext="${message}" style="color: red"></span></p>
+								<p th:if=!${error}><span th:utext="${message}" style="color: green"></span></p>
 							</fieldset>
 						</form>
 					</div>

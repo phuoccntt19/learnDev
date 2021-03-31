@@ -1,8 +1,13 @@
 package com.project.user.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
+import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.project.user.entity.User;
 import com.project.user.service.UserServiceImpl;
-import com.sun.security.auth.UserPrincipal;
 
 @Controller
 public class UserController {
@@ -37,14 +41,21 @@ public class UserController {
 	}
 	
 	@PostMapping("/register")
-	public String registerUser(Model model, @ModelAttribute("user") User user) {
-		if(userServiceImpl.save(user)) {
-			model.addAttribute("message", "Successful registration!");
-		} else {
-			model.addAttribute("message", "User already exists!!!");
-		}
-		return "registerPage";
-	}
+	public String processRegister(User user, HttpServletRequest request, Model model)
+            throws UnsupportedEncodingException, MessagingException {
+        if(userServiceImpl.save(user, getSiteURL(request))) {
+        	return "registerSuccess";
+        } else {
+        	model.addAttribute("error", "e");
+        	model.addAttribute("message", "Registration failed!!!");
+            return "registerPage";
+        }
+    }
+	
+	private String getSiteURL(HttpServletRequest request) {
+        String siteURL = request.getRequestURL().toString();
+        return siteURL.replace(request.getServletPath(), "");
+    }  
 	
 	@GetMapping("/login")
 	public String loginPage() {
@@ -76,5 +87,16 @@ public class UserController {
 	public String page403(Model model) {
 		model.addAttribute("message", "Unauthorized");
 		return "403Page";
+	}
+	
+	@GetMapping("/verify")
+	public String verifyUser(@Param("code") String code,Model model) {
+	    if (userServiceImpl.verify(code)) {
+			model.addAttribute("message", "Congratulations, your account has been verified.");
+			return "welcomePage";
+	    } else {
+			model.addAttribute("message", "Sorry, we could not verify account. It maybe already verified, or verification code is incorrect.");
+			return "welcomePage";
+	    }
 	}
 }

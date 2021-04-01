@@ -40,8 +40,10 @@ public class UserServiceImpl implements UserService {
 	public boolean save(User user, String siteURL) throws UnsupportedEncodingException, MessagingException {
 		user.setRole("ROLE_USER");
 		user.setEnabled(false);
+		
 		BCryptPasswordEncoder bPasswordEncoder = new BCryptPasswordEncoder();
 		user.setPassword(bPasswordEncoder.encode(user.getPassword()));
+		
 		String randomCode = RandomString.make(64);
 	    user.setVerificationCode(randomCode);
 		if(userRepository.findByUsername(user.getUsername()) == null) {

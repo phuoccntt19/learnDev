@@ -10,9 +10,11 @@
 </head>
 <body>
 	<div th:replace="welcomePage :: header">...</div>
-	
-	<h2>Message : <span th:utext="${message}"></span></h2>
-	
+
+	<h2>
+		Message : <span th:utext="${message}"></span>
+	</h2>
+
 	<table border="1">
 		<tr>
 			<th>id</th>
@@ -20,7 +22,7 @@
 			<th>role</th>
 			<th>enabled</th>
 		</tr>
-		<tr th:each = "user : ${users}">
+		<tr th:each="user : ${users}">
 			<td th:utext="${user.id}">...</td>
 			<td th:utext="${user.username}">...</td>
 			<td th:utext="${user.role}">...</td>

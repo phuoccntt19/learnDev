@@ -18,7 +18,7 @@
 		</nav>
 		<div>
 			<a class="btn btn-outline-primary ml-1" th:if="${#request.userPrincipal != null}" th:href="@{/logout}">Logout</a>
-			<a class="btn btn-outline-primary ml-1" th:if="${#request.userPrincipal == null}" th:href="@{/login}">Login</a>
+			<a class="btn btn-outline-primary ml-1" th:if="${#request.userPrincipal == null}" th:href="@{/login}">	Login</a>
 		</div>
 		<div>
 			<a class="btn btn-outline-primary ml-1" th:if="${#request.userPrincipal == null}" th:href="@{/register}">Sign up</a>

@@ -1,13 +1,14 @@
 package com.example.demo.service;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.UserRepository;
 import com.example.demo.entity.UserEntity;
+import com.google.common.hash.Hashing;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -17,11 +18,12 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserEntity register(UserEntity userEntity) {
-		BCryptPasswordEncoder bCEncoder = new BCryptPasswordEncoder();
+		
+		String sha256Password = Hashing.sha256().hashString(userEntity.getPassword(), StandardCharsets.UTF_8).toString();
+		
 		userEntity.setRole("user");
 		userEntity.setEnabled(true);
-		
-		userEntity.setPassword(bCEncoder.encode(userEntity.getPassword()));
+		userEntity.setPassword(sha256Password);
 		
 		try {
 			userRepo.save(userEntity);
@@ -43,12 +45,12 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean login(UserEntity userEntity) {
-		BCryptPasswordEncoder bCEncoder = new BCryptPasswordEncoder();
 		UserEntity userTemp = findByUsername(userEntity.getUsername());
+		String sha256Password = Hashing.sha256().hashString(userEntity.getPassword(), StandardCharsets.UTF_8).toString();
 		if(userTemp == null) {
 			return false;
 		} else {
-			if(bCEncoder.matches(userEntity.getPassword(), userTemp.getPassword())) {
+			if(sha256Password.equals(userTemp.getPassword())) {
 				return true;
 			} else {
 				return false;

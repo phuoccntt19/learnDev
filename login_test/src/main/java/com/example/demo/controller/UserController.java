@@ -15,22 +15,37 @@ public class UserController {
 	@Autowired
 	UserServiceImpl userServiceImpl;
 	
+	private boolean principal = false;
+	
+	public boolean isPrincipal() {
+		return principal;
+	}
+
+	public void setPrincipal(boolean principal) {
+		this.principal = principal;
+	}
+
 	@GetMapping("/")
-	public String home(Model model) {
-		model.addAttribute("principal", false);
+	public String homePage(Model model) {
+		model.addAttribute("principal", principal);
+		
 		model.addAttribute("listUser", userServiceImpl.findAll());
 		return "home";
 	}
 
 	@GetMapping("/register")
-	public String register(Model model) {
+	public String registerPage(Model model) {
+		model.addAttribute("principal", principal);
+		
 		UserEntity userEntity = new UserEntity();
 		model.addAttribute("user", userEntity);
 		return "register";
 	}
 	
 	@PostMapping("/register")
-	public String registerProccess(Model model, UserEntity user) {
+	public String registerProcessing(Model model, UserEntity user) {
+		model.addAttribute("principal", principal);
+		
 		UserEntity userEntity = userServiceImpl.register(user);
 		if(userEntity != null) {
 			return "redirect:/register?error=true";
@@ -40,20 +55,33 @@ public class UserController {
 	}
 	
 	@GetMapping("/login")
-	public String login(Model model) {
+	public String loginPage(Model model) {
+		model.addAttribute("principal", principal);
+		
 		UserEntity userEntity = new UserEntity();
 		model.addAttribute("user", userEntity);
 		return "login";
 	}
 	
 	@PostMapping("/login")
-	public String login(Model model, UserEntity user) {
+	public String loginProcessing(Model model, UserEntity user) {
+		model.addAttribute("principal", principal);
+		
 		if(userServiceImpl.login(user)) {
-			model.addAttribute("principal", true);
+			this.principal = true;
+			model.addAttribute("principal", principal);
 			model.addAttribute("listUser", userServiceImpl.findAll());
 			return "home";
 		} else {
 			return "redirect:/login?error=true";
 		}
+	}
+	
+	@GetMapping("/logout")
+	public String logout(Model model) {
+		this.principal = false;
+		
+		model.addAttribute("principal", principal);
+		return "home";
 	}
 }
